@@ -8,7 +8,6 @@ import android.webkit.WebView;
 import com.helper.loadviewhelper.load.LoadViewHelper;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.u9porn.data.DataManager;
 import com.u9porn.di.component.DaggerAppComponent;
 import com.u9porn.eventbus.LowMemoryEvent;
@@ -56,7 +55,7 @@ public class MyApplication extends DaggerApplication {
             //初始化bug收集
           //  Bugsnag.init(this);
         }
-        CrashReport.initCrashReport(getApplicationContext(), "e426041d83", BuildConfig.DEBUG);
+//        CrashReport.initCrashReport(getApplicationContext(), "e426041d83", BuildConfig.DEBUG);
         BGASwipeBackHelper.init(this, null);
     }
 

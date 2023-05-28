@@ -94,12 +94,12 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
     protected int skipPage;
 
     protected int position;
-
-    @Inject
-    protected CommentFragment commentFragment;
-
-    @Inject
-    protected AuthorFragment authorFragment;
+//
+//    @Inject
+//    protected CommentFragment commentFragment;
+//
+//    @Inject
+//    protected AuthorFragment authorFragment;
 
     @Inject
     protected PlayFragmentAdapter playFragmentAdapter;
@@ -134,7 +134,7 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
      */
     private void initTab() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(commentFragment);
+//        fragments.add(commentFragment);
         if (category != null) {
             if ("index".equalsIgnoreCase(category.getCategoryValue())) {
                 IndexFragment indexFragment = IndexFragment.getInstance();
@@ -152,7 +152,7 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
             //TODO
         }
 
-        fragments.add(authorFragment);
+//        fragments.add(authorFragment);
         playFragmentAdapter.setData(fragments);
         viewPagerPlay.setAdapter(playFragmentAdapter);
         tabPlay.setupWithViewPager(viewPagerPlay);
@@ -183,13 +183,13 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
             setToolBarLayoutInfo(v9PornItem);
             playVideo(v9PornItem.getTitle(), presenter.getVideoCacheProxyUrl(videoResult.getVideoUrl()), videoResult.getVideoName(), videoResult.getThumbImgUrl());
             //加载评论
-            if (commentFragment != null) {
-                commentFragment.setV9PornItem(v9PornItem);
-                commentFragment.loadVideoComment(videoResult.getVideoId(), v9PornItem.getViewKey(), true);
-            }
-            if (authorFragment != null) {
-                authorFragment.setV9PornItem(v9PornItem);
-            }
+//            if (commentFragment != null) {
+//                commentFragment.setV9PornItem(v9PornItem);
+//                commentFragment.loadVideoComment(videoResult.getVideoId(), v9PornItem.getViewKey(), true);
+//            }
+//            if (authorFragment != null) {
+//                authorFragment.setV9PornItem(v9PornItem);
+//            }
         }
     }
 
@@ -268,13 +268,13 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
         //开始播放
         playVideo(v9PornItem.getTitle(), presenter.getVideoCacheProxyUrl(videoResult.getVideoUrl()), "", videoResult.getThumbImgUrl());
         helper.showContent();
-        if (commentFragment != null) {
-            commentFragment.setV9PornItem(v9PornItem);
-            commentFragment.loadVideoComment(videoResult.getVideoId(), v9PornItem.getViewKey(), true);
-        }
-        if (authorFragment != null) {
-            authorFragment.setV9PornItem(v9PornItem);
-        }
+//        if (commentFragment != null) {
+//            commentFragment.setV9PornItem(v9PornItem);
+//            commentFragment.loadVideoComment(videoResult.getVideoId(), v9PornItem.getViewKey(), true);
+//        }
+//        if (authorFragment != null) {
+//            authorFragment.setV9PornItem(v9PornItem);
+//        }
         dismissDialog();
     }
 
@@ -416,9 +416,9 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == KeysActivityRequestResultCode.RESULT_FOR_LOOK_AUTHOR_VIDEO) {
-            if (authorFragment != null) {
-                authorFragment.loadAuthorVideos();
-            }
+//            if (authorFragment != null) {
+//                authorFragment.loadAuthorVideos();
+//            }
         } else if (resultCode == KeysActivityRequestResultCode.RESULT_CODE_FOR_REFRESH_GET_UID) {
             Logger.t(TAG).d("登录成功，需要刷新以获取uid");
             presenter.loadVideoUrl(v9PornItem);

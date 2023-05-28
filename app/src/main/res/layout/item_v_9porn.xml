@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_91porn_item_title"

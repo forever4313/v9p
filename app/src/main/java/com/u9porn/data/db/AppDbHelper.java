@@ -99,21 +99,22 @@ public class AppDbHelper implements DbHelper {
 
     @Override
     public V9PornItem findV9PornItemByViewKey(String viewKey) {
-        V9PornItemDao v9PornItemDao = mDaoSession.getV9PornItemDao();
-        try {
-            return v9PornItemDao.queryBuilder().where(V9PornItemDao.Properties.ViewKey.eq(viewKey)).build().unique();
-        } catch (Exception e) {
-            //暂时先都删除了，之前没有设置唯一约束
-            List<V9PornItem> tmp = v9PornItemDao.queryBuilder().where(V9PornItemDao.Properties.ViewKey.eq(viewKey)).build().list();
-            for (V9PornItem v9PornItem : tmp) {
-                v9PornItemDao.delete(v9PornItem);
-            }
-            if (!BuildConfig.DEBUG) {
-                //Bugsnag.notify(new Throwable("findV9PornItemDaoByViewKey DaoException", e), Severity.WARNING);
-            }
-            e.printStackTrace();
-        }
+//        V9PornItemDao v9PornItemDao = mDaoSession.getV9PornItemDao();
         return null;
+//        try {
+//            return v9PornItemDao.queryBuilder().where(V9PornItemDao.Properties.ViewKey.eq(viewKey)).build().unique();
+//        } catch (Exception e) {
+//            //暂时先都删除了，之前没有设置唯一约束
+//            List<V9PornItem> tmp = v9PornItemDao.queryBuilder().where(V9PornItemDao.Properties.ViewKey.eq(viewKey)).build().list();
+//            for (V9PornItem v9PornItem : tmp) {
+//                v9PornItemDao.delete(v9PornItem);
+//            }
+//            if (!BuildConfig.DEBUG) {
+//                //Bugsnag.notify(new Throwable("findV9PornItemDaoByViewKey DaoException", e), Severity.WARNING);
+//            }
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
     @Override

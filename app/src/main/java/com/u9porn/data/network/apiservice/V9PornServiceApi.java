@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -27,7 +28,7 @@ public interface V9PornServiceApi {
      * @return body
      */
     @Headers({"Domain-Name: " + Api.PORN9_VIDEO_DOMAIN_NAME})
-    @GET("/index.php")
+    @GET("/category/chinese-live-porn")
     Observable<String> porn9VideoIndexPhp(@Header("Referer") String referer);
 
     /**
@@ -37,8 +38,8 @@ public interface V9PornServiceApi {
      * @return body
      */
     @Headers({"Domain-Name: " + Api.PORN9_VIDEO_DOMAIN_NAME})
-    @GET("/view_video.php")
-    Observable<String> getVideoPlayPage(@Query("viewkey") String viewkey, @Header("Referer") String referer);
+    @GET("/{viewkey}")
+    Observable<String> getVideoPlayPage(@Path("viewkey") String viewkey, @Header("Referer") String referer);
 
     /**
      * 获取相应类别数据
@@ -49,8 +50,8 @@ public interface V9PornServiceApi {
      * @return body
      */
     @Headers({"Domain-Name: " + Api.PORN9_VIDEO_DOMAIN_NAME})
-    @GET("/v.php")
-    Observable<String> getCategoryPage(@Query("category") String category, @Query("viewtype") String viewtype, @Query("page") Integer page, @Query("m") String m, @Header("Referer") String referer);
+    @GET("/category/{category}/page/{page}")
+    Observable<String> getCategoryPage(@Path("category") String category,  @Path("page") Integer page,@Query("viewtype") String viewtype, @Query("m") String m, @Header("Referer") String referer);
 
     /**
      * 最近更新

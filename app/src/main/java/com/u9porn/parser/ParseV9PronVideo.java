@@ -47,38 +47,48 @@ public class ParseV9PronVideo {
             return v9PornItemList;
         }
         Element body=bodys.first();
-        Elements items=body.select("div[class=col-xs-12 col-sm-4 col-md-3 col-lg-3]");
+        Elements items=body.select("div[class=post-item-wrap]");
         for (Element element : items) {
-            V9PornItem v9PornItem = new V9PornItem();
+            V9PornItem v9PornItem = parseElementToVideoItm(element);
 
-            String title = element.getElementsByClass("video-title title-truncate m-t-5").first().text();
-            v9PornItem.setTitle(title);
-            Logger.d(title);
-
-            String imgUrl = element.select("img[class=img-responsive]").first().attr("src");
-            v9PornItem.setImgUrl(imgUrl);
-            Logger.d(imgUrl);
-
-            String duration = element.select("span[class=duration]").first().text();
-            v9PornItem.setDuration(duration);
-            Logger.d(duration);
-
-            String contentUrl = element.select("a").first().attr("href");
-            String viewKey = contentUrl.substring(contentUrl.indexOf("=") + 1,contentUrl.indexOf("&"));
-            v9PornItem.setViewKey(viewKey);
-            Logger.d(viewKey);
-
-            String allInfo = element.text();
-            int start = allInfo.indexOf("添加时间");
-            String info = allInfo.substring(start);
-
-            v9PornItem.setInfo(info);
             // Logger.d(info);
             v9PornItemList.add(v9PornItem);
         }
         return v9PornItemList;
     }
 
+
+    private static V9PornItem parseElementToVideoItm(Element element){
+        V9PornItem v9PornItem = new V9PornItem();
+        Element picElement = element.child(0);
+        Element contentElement = element.child(1);
+
+        String imgUrl = picElement.getElementsByClass("blog-picture").first().attr("data-src");
+        v9PornItem.setImgUrl(imgUrl);
+        Logger.d(imgUrl);
+
+        String duration = picElement.getElementsByClass("duration-text").first().text();
+        v9PornItem.setDuration(duration);
+        Logger.d(duration);
+
+        String title = contentElement.getElementsByClass("entry-title h3 post-title").first().text();
+        v9PornItem.setTitle(title);
+        Logger.d(title);
+
+        String contentUrl = contentElement.getElementsByTag("h3").first().select("a").first().attr("href");
+
+        String[] arr = contentUrl.split("/");
+        String viewKey = arr[arr.length - 1];
+        v9PornItem.setViewKey(viewKey);
+        Logger.d(viewKey);
+//
+//            String allInfo = element.text();
+//            int start = allInfo.indexOf("添加时间");
+        String info = "";
+
+        v9PornItem.setInfo(info);
+        return v9PornItem;
+    }
     /**
      * 解析其他类别
      *
@@ -97,51 +107,20 @@ public class ParseV9PronVideo {
             baseResult.setData(v9PornItemList);
             return baseResult;
         }
+
         Element body=bodys.first();
-        Elements items=body.select("div[class=col-xs-12 col-sm-4 col-md-3 col-lg-3]");
-
+        Elements items=body.select("div[class=post-item-wrap]");
         for (Element element : items) {
-            V9PornItem v9PornItem = new V9PornItem();
-            String contentUrl = element.select("a").first().attr("href");
-            //Logger.d(contentUrl);
-            contentUrl = contentUrl.substring(0, contentUrl.indexOf("&"));
-            // Logger.d(contentUrl);
-            String viewKey = contentUrl.substring(contentUrl.indexOf("=") + 1);
-            v9PornItem.setViewKey(viewKey);
+            V9PornItem v9PornItem = parseElementToVideoItm(element);
 
-            String imgUrl = element.select("img[class=img-responsive]").first().attr("src");
-            //  Logger.d(imgUrl);
-            v9PornItem.setImgUrl(imgUrl);
-
-            String title = element.getElementsByClass("video-title title-truncate m-t-5").first().text();
-            //  Logger.d(title);
-            v9PornItem.setTitle(title);
-
-
-            String allInfo = element.text();
-
-            int sindex = allInfo.indexOf("时长");
-
-            String duration = allInfo.substring(sindex + 3, sindex + 8);
-            v9PornItem.setDuration(duration);
-
-            int start = allInfo.indexOf("添加时间");
-            String info = allInfo.substring(start);
-            v9PornItem.setInfo(info.replace("还未被评分", ""));
-            //  Logger.d(info);
-
+            // Logger.d(info);
             v9PornItemList.add(v9PornItem);
         }
         //总页数
-        Element pagingnav = body.getElementById("paging");
-        Elements a = pagingnav.select("a");
-        if (a.size() > 2) {
-            String ppp = a.get(a.size() - 2).text();
-            if (TextUtils.isDigitsOnly(ppp)) {
-                totalPage = Integer.parseInt(ppp);
-                //    Logger.d("总页数：" + totalPage);
-            }
-        }
+        String pageStr = body.getElementsByClass("pages").first().text().replaceAll(",","").replaceAll(" ","");
+        pageStr = pageStr.split("of")[1];
+        totalPage = Integer.parseInt(pageStr);
+
         BaseResult<List<V9PornItem>> baseResult = new BaseResult<>();
         baseResult.setTotalPage(totalPage);
         baseResult.setData(v9PornItemList);

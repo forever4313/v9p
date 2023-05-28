@@ -14,8 +14,8 @@ import java.io.Serializable;
  */
 @Entity
 public class Category implements Serializable {
-    public static final String[] CATEGORY_DEFAULT_91PORN_VALUE = {"index", "watch", "hot", "rp", "long", "md", "tf", "mf", "rf", "top", "top1", "hd"};
-    public static final String[] CATEGORY_DEFAULT_91PORN_NAME = {"主页", "最近更新", "当前最热", "最近得分", "10分钟以上", "本月讨论", "本月收藏", "收藏最多", "最近加精", "本月最热", "上月最热", "高清(会员)"};
+    public static final String[] CATEGORY_DEFAULT_91PORN_VALUE = {"chinese-live-porn", "selfie-porn", "private-show-porn", "kol-selfie-porn", "master-91porn", "chinese-av-porn"};
+    public static final String[] CATEGORY_DEFAULT_91PORN_NAME = {"中国主播", "自拍流出", "主播福利", "网红福利", "91大神", "国产AV"};
     public static final String[] CATEGORY_DEFAULT_91PORN_FORUM_VALUE = {"index", "17", "19", "4", "21", "33", "34"};
     public static final String[] CATEGORY_DEFAULT_91PORN_FORUM_NAME = {"主页", "自拍达人原创区", "自拍达人原创申请", "原创自拍区", "我爱我妻", "X趣分享", "两X健康"};
     public static final String[] CATEGORY_DEFAULT_MEI_ZI_TU_VALUE = {"index", "hot", "best", "xinggan", "japan", "taiwan", "mm"};

@@ -30,6 +30,6 @@ public class V91PornAdapter extends BaseQuickAdapter<V9PornItem, BaseViewHolder>
         helper.setText(R.id.tv_91porn_item_info, item.getInfo());
         ImageView simpleDraweeView = helper.getView(R.id.iv_91porn_item_img);
         Uri uri = Uri.parse(item.getImgUrl());
-        GlideApp.with(helper.itemView).load(uri).placeholder(R.drawable.placeholder).transition(new DrawableTransitionOptions().crossFade(300)).into(simpleDraweeView);
+        GlideApp.with(helper.itemView).load(uri).placeholder(R.drawable.placeholder).centerCrop().optionalCenterCrop().transition(new DrawableTransitionOptions().crossFade(300)).into(simpleDraweeView);
     }
 }

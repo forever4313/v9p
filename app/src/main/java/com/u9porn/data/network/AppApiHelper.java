@@ -107,6 +107,8 @@ public class AppApiHelper implements ApiHelper {
     private User user;
     private final VideoPlayUrlParser videoPlayUrlParser;
 
+
+
     class InJavaScriptLocalObj {
         @JavascriptInterface
         public void showSource(String html) {
@@ -168,7 +170,7 @@ public class AppApiHelper implements ApiHelper {
         DynamicKeyGroup dynamicKeyGroup = new DynamicKeyGroup(condition, page);
         EvictDynamicKey evictDynamicKey = new EvictDynamicKey(cleanCache || isLoadMoreCleanCache);
 
-        Observable<String> categoryPage = v9PornServiceApi.getCategoryPage(category, viewType, page, m, HeaderUtils.getIndexHeader(addressHelper));
+        Observable<String> categoryPage = v9PornServiceApi.getCategoryPage(category, page,viewType, m, HeaderUtils.getIndexHeader(addressHelper));
         return cacheProviders.getCategoryPage(categoryPage, dynamicKeyGroup, evictDynamicKey)
                 .map(Reply::getData)
                 .map(ParseV9PronVideo::parseByCategory);

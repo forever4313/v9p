@@ -10,6 +10,9 @@ import com.u9porn.utils.AppUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.script.Invocable;
@@ -28,26 +31,19 @@ public class VideoUrlParser extends BaseVideoPlayUrlParser implements VideoPlayU
     public VideoResult parseVideoPlayUrl(String html, User user) {
         VideoResult videoResult = new VideoResult();
         Document document = Jsoup.parse(html);
-//        Logger.t("AAA").d(html);
-        Element e = document.getElementById("player_one").selectFirst("script");
-        String script = e.outerHtml();
-        String aac = script.substring(script.indexOf("strencode2(") + "strencode2(".length() + 1, script.indexOf(")") - 1);
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("js");
-        try {
-            String srcScript = AppUtils.getAssetsAsString(MyApplication.getInstance(), "20210320.js");
-            engine.eval(srcScript);
-        } catch (ScriptException scriptException) {
-            scriptException.printStackTrace();
+        Elements metas = document.select("meta");
+
+        if(metas==null||metas.isEmpty()){
+            return null;
         }
-        if (engine instanceof Invocable) {
-            Invocable invocable = (Invocable) engine;
-            JavaScriptInterface executeMethod = invocable.getInterface(JavaScriptInterface.class);
-            parserOtherInfo(document, videoResult, user);
-            String source = executeMethod.strencode2(aac);
-            String videoUrl = source.substring(source.indexOf("src='") + 5, source.indexOf("' type"));
-            videoResult.setVideoUrl(videoUrl);
+        String videoUrl = "";
+        for (Element element : metas){
+            if(element.hasAttr("property")  && Objects.equals(element.attr("property"), "og:video:url")){
+                videoUrl = element.attr("content");
+            }
         }
+        videoResult.setVideoUrl(videoUrl);
+//        parserOtherInfo(document, videoResult, user);
 
         return videoResult;
     }

@@ -17,8 +17,10 @@ public class VideoCacheFileNameGenerator implements FileNameGenerator {
     //"http://185.38.13.130//mp43/238248.mp4?st=Uwgj0IbndG0N7J5qQx1CuA&e=1511443750"
     @Override
     public String generate(String url) {
+        System.out.println("加载url");
+        System.out.println(url);
         int startIndex = url.lastIndexOf("/");
-        int endIndex = url.indexOf(".mp4");
+        int endIndex = url.indexOf("index.m3u8");
         try {
             return url.substring(startIndex, endIndex) + ".temp";
         } catch (Exception e) {

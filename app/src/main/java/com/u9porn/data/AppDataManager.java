@@ -612,7 +612,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public String getVideoCacheProxyUrl(String originalVideoUrl) {
-        return httpProxyCacheServer.getProxyUrl(originalVideoUrl, true);
+        return originalVideoUrl;
     }
 
     @Override
